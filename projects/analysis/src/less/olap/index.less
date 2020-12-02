@@ -1,0 +1,71 @@
+@prefix: ~'.POlap';
+
+@{prefix} {
+	margin: 0 60px;
+	&-header {
+		display: flex;
+		align-items: center;
+		border-bottom: 1px solid #565656;
+		padding-bottom: 14px;
+		.title {
+			flex: 1;
+			font-size: 18px;
+		}
+		.handle {
+			margin-right: 24px;
+		}
+		.close {
+			width: 16px;
+			height: 16px;
+			background: url(http://s5.qhres.com/static/a2a3dd7a273ed199.svg) 100% 100%
+				no-repeat;
+			cursor: pointer;
+		}
+	}
+	&-body {
+		display: flex;
+		flex-wrap: nowrap;
+		margin-top: 12px;
+		@{prefix}-left {
+			width: 210px;
+			padding: 10px 15px;
+			background: #22232b;
+			.newFields {
+				display: flex;
+				align-items: center;
+				cursor: pointer;
+				.add-icon {
+					display: inline-block;
+					width: 20px;
+					height: 20px;
+					border-radius: 50%;
+					background: url(http://s5.qhres.com/static/178989314a9d0337.svg)
+						center no-repeat;
+					background-size: 50%;
+					background-color: #37373f;
+					margin-right: 14px;
+				}
+			}
+		}
+		@{prefix}-main {
+			flex: 1;
+			display: flex;
+			flex-direction: column;
+			min-width: 500px;
+			padding: 0 12px;
+			@{prefix}-drop-area {
+				background: #22232b;
+				margin-bottom: 12px;
+			}
+			@{prefix}-chart {
+				flex: 1;
+				background: #22232b;
+			}
+		}
+		@{prefix}-right {
+			width: 232px;
+			overflow: hidden;
+			background: #22232b;
+		}
+	}
+}

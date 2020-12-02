@@ -1,0 +1,47 @@
+@prefix: ~'.CConvertType';
+
+@{prefix} {
+  display: block;
+
+  &-query {
+    width: 100%;
+    margin-bottom: 15px;
+  }
+
+  &-convert {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+
+    .convert-item {
+      width: 33.333%;
+      height: 20px;
+      margin: 15px 0;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+			align-items: center;
+			font-size: 20px;
+			&.active {
+				color: #FFC35E;
+			}
+    }
+  }
+}
+
+// Tooltip悬浮框
+@{prefix}-tooltip {
+  font-size: 12px;
+  color: #8c8c8c;
+
+  span {
+    display: inline-block;
+    margin-right: 5px;
+    width: 8px;
+    height: 8px;
+    background-image: url(http://s8.qhres.com/static/fd7830195639912d.svg);
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+}

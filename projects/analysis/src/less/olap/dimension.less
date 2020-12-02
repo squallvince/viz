@@ -1,0 +1,74 @@
+// 覆盖由iframe子应用修改的antd默认样式
+@prefix: ~'.CDimension';
+
+@{prefix} {
+	position: relative;
+	margin-bottom: 20px;
+	border: 1px solid transparent;
+	&::before {
+		content: '';
+		position: absolute;
+		bottom: -20px;
+		left: 10px;
+		width: 50%;
+		height: 1px;
+		background: #2a2a2a;
+	}
+	&.showShadow {
+		&::after {
+			content: '';
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			width: 100%;
+			height: 30px;
+			z-index: 1;
+			background: linear-gradient(180deg, rgba(31, 31, 39, 0) 0%, #1f1f27 100%);
+		}
+	}
+	&.canDrop {
+		border: 1px dashed #565656;
+	}
+	&-title {
+		margin-bottom: 10px;
+		font-weight: 600;
+		.icon {
+			display: inline-block;
+			width: 14px;
+			height: 14px;
+			margin-right: 10px;
+			font-size: 0;
+			background: url(http://s4.qhres.com/static/e5aaafcddeae8149.svg) no-repeat
+				center;
+		}
+	}
+	&-content {
+		height: 190px;
+		padding-left: 16px;
+		padding-bottom: 10px;
+		overflow-y: auto;
+		overflow-x: hidden;
+		&::-webkit-scrollbar {
+			/*滚动条整体样式*/
+			width: 0px; /*定义纵向滚动条宽度*/
+			height: 0px; /*定义横向滚动条高度*/
+		}
+
+		&::-webkit-scrollbar-thumb {
+			/*滚动条内部滑块*/
+			border-radius: 8px;
+			background-color: #4a4a57;
+			transition: background-color 0.3s;
+		}
+
+		&::-webkit-scrollbar-thumb:hover {
+			/*鼠标悬停滚动条内部滑块*/
+			background: #4a4a57;
+		}
+
+		&::-webkit-scrollbar-track {
+			/*滚动条内部轨道*/
+			background: #26272d;
+		}
+	}
+}

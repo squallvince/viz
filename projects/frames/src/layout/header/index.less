@@ -1,0 +1,58 @@
+.header {
+  position: relative;
+  z-index: 10;
+  max-width: 100%;
+  background: #121016;
+  .btn-collapsed {
+    border: 0;
+    width: 40px;
+    height: 40px;
+    background: #37373F;
+    &.ant-btn:hover, &.ant-btn:focus {
+      color: #fff;
+      background: #37373F;
+      border: 0;
+    }
+  }
+}
+
+.logo {
+  padding-left: .6rem;
+  overflow: hidden;
+  white-space: nowrap;
+  text-decoration: none;
+  img {
+    height: 20px;
+  }
+}
+
+.logo-title {
+  margin: 0 0 0 .5rem;
+  color: #fff;
+  font-size: .8rem;
+  font-weight: 600;
+  opacity: .8;
+}
+
+.top-bar {
+  display: flex;
+  align-items: center;
+  text-align: justify;
+  height: 100%;
+  float: right;
+  padding-right: 2em;
+  .control-list {
+    flex: 1;
+    text-align: right;
+    align-self: center;
+  }
+  .ant-avatar-icon {
+    width: 24px;
+    height: 24px;
+    margin: 0 .4em 0 1.4em;
+  }
+  .control-list-icon {
+    font-size: 18px;
+    margin-right: .4em;
+  }
+}

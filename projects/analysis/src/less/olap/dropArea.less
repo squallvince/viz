@@ -1,0 +1,28 @@
+@prefix: ~'.CDropArea';
+
+@{prefix} {
+	padding: 12px;
+	&-row,
+	&-column,
+	&-filter {
+		border: 1px solid transparent;
+		border-bottom: 1px solid #565656;
+		height: 36px;
+		line-height: 36px;
+		display: flex;
+		align-items: center;
+		.title {
+			width: 80px;
+			font-size: 14px;
+			color: #8c8c8c;
+		}
+		.content {
+			font-size: 12px;
+			color: #8c8c8c;
+			flex: 1;
+			span {
+				color: #c7c7c7;
+			}
+		}
+	}
+}

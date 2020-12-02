@@ -1,0 +1,190 @@
+@import "//at.alicdn.com/t/font_2084811_ewk2xk4hu7.css";
+@prefix: ~".Psearch";
+
+@{prefix} {
+  font-size: 14px;
+
+  &-bar {
+    margin-bottom: 24px;
+  }
+
+  &-main {
+    @{prefix}-tab-extra {
+      display: flex;
+      @{prefix}-switch {
+        padding: 5px 0 10px;
+        margin-right: 45px;
+        .table {
+          display: inline-block;
+          width: 16px;
+          height: 16px;
+          background: url(http://s9.qhres.com/static/333f684366ab2fd9.svg)
+            no-repeat;
+          cursor: pointer;
+          margin-right: 12px;
+          &.active {
+            background: url(http://s5.qhres.com/static/9763486eead29943.svg)
+              no-repeat;
+          }
+        }
+        .list {
+          display: inline-block;
+          width: 16px;
+          height: 16px;
+          background: url(http://s4.qhres.com/static/828625a7516437a4.svg)
+            no-repeat;
+          cursor: pointer;
+          &.active {
+            background: url(http://s7.qhres.com/static/aec12d3911d9241a.svg)
+              no-repeat;
+          }
+        }
+      }
+    }
+    @{prefix}-allContainer {
+      display: flex;
+
+      @{prefix}-keyword {
+        width: 200px;
+        height: 100%;
+        padding-top: 40px;
+        .handle {
+          display: flex;
+          align-items: center;
+          margin-bottom: 20px;
+          cursor: pointer;
+
+          .add-icon {
+            width: 24px;
+            height: 24px;
+            background: #37373f;
+            border-radius: 50%;
+            text-align: center;
+            background-image: url(http://s5.qhres.com/static/178989314a9d0337.svg);
+            background-repeat: no-repeat;
+            background-position: center;
+            margin-right: 12px;
+          }
+        }
+
+        .choosed-field {
+          margin-bottom: 20px;
+
+          .title {
+            color: #808388;
+            margin-bottom: 10px;
+          }
+
+          .check-item {
+            margin-bottom: 5px;
+          }
+        }
+
+        .like-field {
+          .title {
+            color: #808388;
+            margin-bottom: 10px;
+          }
+
+          .check-item {
+            margin-bottom: 5px;
+          }
+        }
+      }
+
+      @{prefix}-content {
+        flex: 1;
+        max-width: calc(100% - 200px);
+      }
+    }
+  }
+
+  .ant-drawer-content-wrapper {
+    min-width: 668px;
+
+    .ant-layout {
+      height: 100%;
+    }
+  }
+}
+
+@black_primary_color: #5b7ee2;
+@default-black-color: #37373f;
+
+.ant-drawer {
+  .ant-drawer-content {
+    background: #29292f;
+  }
+}
+
+.analysis {
+  // color: rgb(73, 71, 71);
+  .ant-btn,.ant-btn-primary {
+    background: @default-black-color;
+    border-color: @default-black-color;
+  }
+  .ant-btn-primary {
+    background: @black_primary_color;
+    border-color: @black_primary_color;
+  }
+  .ant-pagination-item-active a {
+    color: @black_primary_color;
+  }
+  .ant-input:focus,
+  .ant-input-focused,
+  .ant-input-search .ant-input:hover,
+  .ant-input-search .ant-input:focus {
+    border-color: @black_primary_color;
+  }
+}
+
+// 覆盖全局pagination样式
+.theme-dark {
+  .ant-pagination-item-active {
+    a {
+      color: #fff;
+    }
+  }
+
+  // tabs样式
+  .ant-tabs {
+    color: #808388;
+
+    & > .ant-tabs-nav {
+      padding-left: 24px;
+    }
+  }
+
+  // button样式
+  .ant-btn:hover,
+  .ant-btn:focus,
+  .ant-btn:active {
+    color: #fff;
+    border-color: #37373f;
+  }
+}
+
+// ====================全局滚动条=======================
+*::-webkit-scrollbar {
+  /*滚动条整体样式*/
+  width: 8px; /*定义纵向滚动条宽度*/
+  height: 8px; /*定义横向滚动条高度*/
+}
+
+*::-webkit-scrollbar-thumb {
+  /*滚动条内部滑块*/
+  border-radius: 8px;
+  background-color: #4a4a57;
+  transition: background-color 0.3s;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  /*鼠标悬停滚动条内部滑块*/
+  background: #4a4a57;
+}
+
+*::-webkit-scrollbar-track {
+  /*滚动条内部轨道*/
+  background: #26272d;
+}
+// ====================+滚动条============================

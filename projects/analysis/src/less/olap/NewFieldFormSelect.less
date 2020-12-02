@@ -1,0 +1,22 @@
+.formSelectCustom {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-column-gap: 20px;
+  &>div {
+    height: 240px;
+    width: 100%;
+    padding: 10px;
+    background: @body-background;
+    overflow-y: auto;
+    overflow-x: hidden;
+    &>div {
+      height: 20px;
+      line-height: 20px;
+      cursor: pointer;
+      // color: 
+      &>span {
+        margin-right: 4px;
+      }
+    }
+  }
+}

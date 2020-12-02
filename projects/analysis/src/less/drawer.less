@@ -1,0 +1,380 @@
+// 抽屉样式
+@font-size: 14px;
+@black_primary_color: #5b7ee2;
+@default-black-color: #37373f;
+@black-hover-color: #33343c;
+@import "./split.less";
+.drawerConfig {
+  @background: #26272d;
+  font-size: @font-size;
+  ul,
+  li {
+    padding: 0;
+    margin: 0;
+  }
+  h5.title {
+    color: #757883;
+    margin-bottom: 15px;
+    font-size: @font-size;
+  }
+  .ant-spin-spinning {
+    display: inline-block;
+    opacity: 1;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+  }
+  .ant-drawer-content,
+  .ant-drawer-header {
+    background-color: @background;
+    background: @background;
+  }
+  .ant-drawer-header {
+    padding: 24px;
+    padding-bottom: 8px;
+    border-bottom: 0;
+    .ant-drawer-title {
+      font-size: 18px;
+    }
+  }
+  .ant-drawer-content-wrapper {
+    min-width: 668px;
+    background: @background;
+    .ant-layout {
+      min-height: 100%;
+      background: @background;
+    }
+    .ant-layout-header {
+      border-bottom: 1px solid #36363e;
+      background: @background;
+    }
+    .ant-layout-header {
+      border-bottom: 1px solid #36363e;
+      background: @background;
+    }
+    .ant-layout-content {
+      padding: 16px 24px;
+    }
+    .ant-layout-footer {
+      text-align: right;
+      padding-right: 40px;
+      background: @background;
+      button {
+        margin-left: 16px;
+        width: 74px;
+        height: 28px;
+      }
+    }
+    // 重写步骤条
+    .ant-steps-item-process .ant-steps-item-icon {
+      background: @black_primary_color;
+      border-color: @black_primary_color;
+    }
+    .ant-steps-item-process
+      > .ant-steps-item-container
+      > .ant-steps-item-content
+      > .ant-steps-item-title {
+      color: @black_primary_color;
+      font-size: @font-size;
+      font-weight: normal;
+    }
+    .ant-steps-item-process
+      > .ant-steps-item-container
+      > .ant-steps-item-content
+      > .ant-steps-item-title::after,
+    .ant-steps-item-wait
+      > .ant-steps-item-container
+      > .ant-steps-item-content
+      > .ant-steps-item-title::after {
+      background-color: #757883;
+    }
+    .ant-form-item-label > label {
+      font-size: @font-size;
+      color: #8e8f95;
+    }
+    // ====================+滚动条=======================
+    *::-webkit-scrollbar {
+      /*滚动条整体样式*/
+      width: 8px; /*定义纵向滚动条宽度*/
+      height: 8px; /*定义横向滚动条高度*/
+    }
+
+    *::-webkit-scrollbar-thumb {
+      /*滚动条内部滑块*/
+      border-radius: 8px;
+      background-color: #4a4a57;
+      transition: background-color 0.3s;
+    }
+
+    *::-webkit-scrollbar-thumb:hover {
+      /*鼠标悬停滚动条内部滑块*/
+      background: #4a4a57;
+    }
+
+    *::-webkit-scrollbar-track {
+      /*滚动条内部轨道*/
+      background: @background;
+    }
+    // ====================+滚动条============================
+  }
+  .ant-pagination {
+    align-self: center;
+  }
+  .ant-pagination-prev button,
+  .ant-pagination-next button {
+    color: #8e8f95;
+  }
+  .ant-pagination-item {
+    border: none;
+    a {
+      color: #8e8f95;
+    }
+  }
+  .ant-pagination-item-active {
+    border-color: @black_primary_color;
+    background: none;
+  }
+  .ant-pagination-item-active a {
+    color: @black_primary_color;
+  }
+  // 步骤0样式
+  .step0 {
+    height: 100%;
+    .fetchColumn {
+      margin-bottom: 20px;
+    }
+    .result {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      h5 {
+        display: flex;
+        justify-content: space-between;
+        font-size: @font-size;
+        font-weight: normal;
+        color: #757883;
+      }
+    }
+    .list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      flex: auto;
+      overflow: auto;
+      li {
+        min-height: 44px;
+        font-size: @font-size;
+        padding: 12px 16px;
+        cursor: pointer;
+        // margin-top: 12px;
+        &:nth-child(odd) {
+          background: rgba(31, 32, 39, 0.65);
+        }
+        &.active {
+          background: @black-hover-color;
+          box-shadow: 0px 0px 6px 4px rgba(31, 32, 36, 0.22);
+        }
+      }
+    }
+  }
+  // 提取方式切换tab样式
+  .methodTabs {
+    font-size: @font-size;
+    margin-bottom: 30px;
+
+    // 重写默认tab切换样式
+
+    .ant-tabs-top > .ant-tabs-nav,
+    .ant-tabs-bottom > .ant-tabs-nav,
+    .ant-tabs-top > div > .ant-tabs-nav,
+    .ant-tabs-bottom > div > .ant-tabs-nav {
+      margin-bottom: 0;
+    }
+    .ant-tabs-card > .ant-tabs-nav .ant-tabs-tab,
+    .ant-tabs-card > div > .ant-tabs-nav .ant-tabs-tab {
+      color: #757883;
+      background: @background;
+      padding: 12px 32px 8px 32px;
+      font-size: 14px;
+      text-align: center;
+      margin: 0;
+      border: none;
+    }
+    .ant-tabs-card > .ant-tabs-nav .ant-tabs-tab-active,
+    .ant-tabs-card > div > .ant-tabs-nav .ant-tabs-tab-active {
+      color: #fff;
+      background: @black-hover-color;
+    }
+    .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+      color: #fff;
+    }
+    .ant-tabs-content {
+      padding: 16px 24px;
+      background: @black-hover-color;
+    }
+    h5.title + p {
+      margin-bottom: 20px;
+      font-size: @font-size;
+      max-height: 105px;
+      overflow: auto;
+    }
+    input,
+    button {
+      background: @background;
+      color: #fff;
+      font-size: 12px;
+      height: 28px;
+    }
+    button {
+      width: 96px;
+      height: 26px;
+      border-radius: 2px;
+      border: 1px solid #4f4f57;
+    }
+  }
+  // 正则提取组件样式
+  .stepReg {
+    font-size: @font-size;
+    .warning {
+      color: #ff4960;
+      span {
+        margin-right: 8px;
+      }
+    }
+  }
+  li.regResult {
+    display: flex;
+    padding: 4px 0;
+    span {
+      min-width: 110px;
+    }
+    input {
+      width: 160px;
+      height: 26px;
+      background: #363740;
+      border-radius: 2px;
+      color: #7a7b88;
+      margin-left: 8px;
+    }
+  }
+}
+.step1 {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.step2 {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  .labels {
+    display: flex;
+  }
+  .columnLabel {
+    display: inline-block;
+    height: 20px;
+    background: rgba(91, 126, 226, 0.7);
+    line-height: 20px;
+    font-size: 12px;
+    color: #e5e5e5;
+    align-self: center;
+    &.fetch {
+      padding: 0 12px;
+      margin-left: 16px;
+    }
+  }
+  .title.between {
+    display: flex;
+    justify-content: space-between;
+    flex: 1;
+  }
+  .match,
+  .unmatch {
+    display: inline-block;
+    font-size: 12px;
+    color: #757883;
+    .anticon {
+      margin-right: 8px;
+    }
+  }
+  .match {
+    margin-left: 30px;
+  }
+  .unmatch {
+    margin-left: 17px;
+  }
+  .regList {
+    padding-top: 15px;
+    flex: auto;
+    overflow: auto;
+    li {
+      min-height: 68px;
+      background: rgba(31, 32, 39, 0.65);
+      padding: 12px 20px;
+      font-size: @font-size;
+      display: flex;
+      margin-bottom: 4px;
+      color: #fff;
+      word-break: break-all;
+      .anticon {
+        margin-left: 7px;
+      }
+      span:not(.columnLabel) {
+        display: inline-block;
+        margin-right: 20px;
+        line-height: 22px;
+        align-self: center;
+      }
+    }
+  }
+}
+.save-section {
+  color: #fff;
+  font-size: @font-size;
+  .ant-form-item-label {
+    text-align: left;
+  }
+  .ant-input {
+    background: #363740;
+    margin-left: 20px;
+  }
+  .configs {
+    list-style: none;
+    li {
+      line-height: 22px;
+      margin-bottom: 16px;
+      display: flex;
+      input {
+        width: 300px;
+        height: 28px;
+        margin: 0;
+      }
+    }
+    span {
+      display: inline-block;
+      min-width: 80px;
+      &:first-child {
+        width: 80px;
+      }
+      &:last-child {
+        max-width: 100%;
+      }
+    }
+    .expression {
+      max-height: 140px;
+      overflow: auto;
+    }
+  }
+}
+// ==================完成步骤
+.finish {
+  padding: 16px 0;
+  color: #fff;
+  h1 {
+    font-size: 24px;
+    margin: 0;
+  }
+  h5 {
+    margin-top: 16px;
+  }
+}

@@ -1,0 +1,64 @@
+.prediction {
+  display: grid;
+  grid-template-columns: 130px 1fr;
+  // height: 500px;
+
+  &-left {
+    border-right: 1px solid #565656;
+
+    p {
+      margin-bottom: 0;
+      cursor: pointer;
+      color: rgba(255, 255, 255, 0.3);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+
+      &.active {
+        color: #fff;
+      }
+    }
+
+    .item {
+      user-select: none;
+      display: grid;
+      grid-template-columns: 1fr 50px;
+      cursor: pointer;
+      color: rgba(255, 255, 255, 0.3);
+
+      .anticon-down {
+        line-height: 30px;
+      }
+    }
+
+    .item-sub {
+      user-select: none;
+      padding-left: 10px;
+      padding-bottom: 20px;
+      height: 100px;
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
+  }
+
+  &-right {
+    padding: 0 20px;
+  }
+}
+
+// .anticon {
+//   margin-left: 10px;
+//   color: #fff;
+//   cursor: pointer;
+// }
+
+header {
+  color: #909398;
+  cursor: pointer;
+  user-select: none;
+}
+
+.ant-form-item-extra {
+  font-size: 12px !important;
+  margin-top: 0 !important;
+}

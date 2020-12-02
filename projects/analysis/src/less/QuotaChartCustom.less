@@ -1,0 +1,58 @@
+.quotaChart {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 240px);
+  grid-column-gap: 24px;
+  grid-row-gap: 24px;
+
+  .quotaChartItem {
+    width: 240px;
+    height: 160px;
+    background-color: @quota-chart-item-bg;
+    padding: 24px;
+
+    header {
+      color: @quota-chart-item-head;
+      font-size: 20px;
+      width: 100%;
+      height: 20px;
+      line-height: 20px;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    main {
+      // text-indent: 30px;
+      height: 60px;
+      line-height: 60px;
+      // display: grid;
+      // grid-template-columns: 14px 170px;
+
+      .content {
+        color: @quota-chart-item-text;
+        font-size: 22px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
+    }
+
+    footer {
+      text-indent: 30px;
+      font-size: 12px;
+
+      .iconfont {
+        color: red;
+        font-size: 12px;
+      }
+
+      .text {
+        margin: 0 4px;
+      }
+
+      .compare {
+        color: red;
+      }
+    }
+  }
+}

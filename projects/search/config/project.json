@@ -1,0 +1,10 @@
+{
+  "name": "search",
+  "prefix": "/search",
+  "main": "../src/search.tsx",
+  "externalCss": true,
+  "vendors": false,
+  "runtime": false,
+  "port": 8251,
+  "base": false
+}

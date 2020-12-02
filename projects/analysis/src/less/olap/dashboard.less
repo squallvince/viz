@@ -1,0 +1,25 @@
+@prefix: ~'.COlapDashboard';
+
+@{prefix} {
+	height: 100%;
+	&-chart {
+		position: relative;
+		height: 100%;
+		@{prefix}-empty {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			display: flex;
+			align-items: center;
+			.handleText {
+				color: #8c8c8c;
+				width: 150px;
+				font-size: 12px;
+				span {
+					color: #cecece;
+				}
+			}
+		}
+	}
+}

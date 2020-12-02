@@ -1,0 +1,7 @@
+{
+  "name": "base",
+  "prefix": "/",
+  "main": "../src/base.js",
+  "port": 8233,
+  "base": true
+}

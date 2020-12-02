@@ -1,0 +1,10 @@
+{
+  "name": "analysis",
+  "prefix": "/analysis",
+  "main": "../src/analysis.tsx",
+  "externalCss": true,
+  "vendors": true,
+  "runtime": true,
+  "port": 8250,
+  "base": false
+}

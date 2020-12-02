@@ -1,0 +1,23 @@
+.filterItem {
+  .filterItemArrow {
+    margin-right: 4px;
+    cursor: pointer;
+  }
+  svg {
+    fill: #000;
+  }
+}
+
+.filterMenuItem {
+  width: 150px;
+  display: grid;
+  grid-template-columns: 130px 20px;
+  user-select: none;
+  .text {
+    font-size: 12px;
+    color: #8c8c8c;
+    &.active {
+      color: #fff;
+    }
+  }
+}

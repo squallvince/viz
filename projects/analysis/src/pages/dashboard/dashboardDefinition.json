@@ -1,0 +1,133 @@
+{
+  "dataSources": {
+    "ds_QVT58Mde": {
+      "type": "ds.search",
+      "options": {
+        "querySql": "select date_time,count(*) from secure group by date_time",
+        "selectColumns": "",
+        "startTime": "",
+        "endTime": "",
+        "timeType": "allTime",
+        "page": 1,
+        "pageSize": 10
+      },
+      "query": "/api/v1.0/viz/datas",
+      "name": "Search_1"
+    },
+    "formXXXOptions": {
+      "type": "data",
+      "data": {
+        "analysis": {
+          "title": "通过搜索分析新建",
+          "key": "/analysis?from=create",
+          "disabled": false,
+          "type": "create"
+        },
+        "olap": {
+          "title": "通过多维分析新建",
+          "key": "/analysis/olap?from=create",
+          "disabled": true,
+          "type": "create"
+        }
+      }
+    }
+  },
+  "visualizations": {
+    "viz_lKB497Im": {
+      "title": "{value}",
+      "type": "viz.table",
+      "options": {},
+      "dataSources": {
+        "primary": "ds_QVT58Mde"
+      }
+    }
+  },
+  "forms": {
+    "formXXX": {
+      "type": "form.Dropdown",
+      "title": "新建图表",
+      "icon": "icon-chart-line",
+      "options": [
+        {
+          "title": "通过搜索分析新建",
+          "key": "/analysis?from=create",
+          "disabled": false,
+          "type": "create"
+        },
+        {
+          "title": "通过多维分析新建",
+          "key": "/analysis/olap?from=create",
+          "disabled": true,
+          "type": "create"
+        }
+      ],
+      "tokens": {
+        "primary": "newChart"
+      },
+      "dataSources": {
+        "primary": "formXXXOptions"
+      }
+    },
+    "formYYY": {
+      "type": "form.Dropdown",
+      "title": "已有图表中选择",
+      "icon": "icon-todo",
+      "options": [
+        {
+          "title": "从报表中选择",
+          "key": "/analysis",
+          "disabled": false,
+          "type": "drawer"
+        },
+        {
+          "title": "从仪表盘中选择",
+          "key": "/analysis/olap",
+          "disabled": true,
+          "type": "drawer"
+        }
+      ],
+      "tokens": {
+        "primary": "readyTables"
+      },
+      "dataSources": {
+        "primary": "dropdownOptions"
+      }
+    },
+    "formZZZ": {
+      "type": "form.Button",
+      "title": "保存",
+      "icon": "",
+      "options": [],
+      "tokens": {
+        "primary": "saveAll"
+      },
+      "dataSources": {
+        "primary": ""
+      }
+    }
+  },
+  "tokens": {
+    "title": "",
+    "value": "",
+    "newChart": "",
+    "readyTables": "",
+    "saveAll": ""
+  },
+  "layout": {
+    "globalInputs": [],
+    "options": {},
+    "structure": [
+      {
+        "i": "viz_lKB497Im",
+        "x": 0,
+        "y": 0,
+        "w": 300,
+        "h": 300
+      }
+    ]
+  },
+  "custom": {
+    "title": "dashboard-demo",
+    "description": "这是一段描述"
+  }
+}

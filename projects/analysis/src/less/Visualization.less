@@ -1,0 +1,48 @@
+.visualization {
+  position: relative;
+  min-height: 200px;
+
+  &-legend {
+    display: flex;
+    flex-direction: column;
+    // justify-content: flex-end;
+    // padding-bottom: 4px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 1;
+
+    .item-img {
+      // margin-left: 20px;
+      cursor: pointer;
+
+      &:hover {
+        color: @charts-icon-hover-color;
+      }
+
+      &.active {
+        color: @charts-icon-hover-color;
+      }
+    }
+  }
+
+  &-chart {
+    padding-right: 40px;
+  }
+
+  .pa-legend {
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 40px;
+
+    &>span {
+      margin-left: 20px;
+      user-select: none;
+
+      img {
+        margin-right: 4px;
+      }
+    }
+
+  }
+}

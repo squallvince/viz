@@ -1,0 +1,38 @@
+.searchDialog{
+  /deep/.ant-modal-header,.ant-modal-body{
+    padding:32px 32px 0 32px;
+    border-bottom: none;
+    box-shadow:4px 4px 2px rgba(8,9,10,0.23);
+    border-radius: 4px;
+    background: rgba(38,39,45,0.65);
+  }
+  .ant-modal-body{
+    padding-top:18px;
+    .ant-tabs-ink-bar{
+      // width:18px !important;
+      // left:30px !important;
+    }
+  }
+  .ant-tabs-top > .ant-tabs-nav, .ant-tabs-bottom > .ant-tabs-nav, .ant-tabs-top > div > .ant-tabs-nav, .ant-tabs-bottom > div > .ant-tabs-nav{
+    margin:0;
+  }
+  .ant-tabs-content{
+    text-align: center;
+    font-size: 12px;
+    background: #1C1C23;
+    .content{
+      padding:17px;
+      height:500px;
+      line-height: 17px;
+      overflow: auto;
+    }
+    // .ant-spin{
+    //   position: absolute;
+    //   left:50%;
+    //   top:50%;
+    // }
+  }
+  .ant-tabs-content-holder{
+    height:500px;
+  }
+}

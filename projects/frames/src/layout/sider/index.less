@@ -1,0 +1,26 @@
+.sider {
+  &-menu {
+    height: 100%;
+    border-right: 0;
+  }
+}
+
+.root {
+  .ant-menu-dark {
+    &.ant-menu-dark:not(.ant-menu-horizontal) {
+      .ant-menu-item-selected {
+        background-color: transparent;
+      }
+    }
+  }
+}
+
+.ant-menu-vertical {
+  display: none;
+}
+
+.ant-menu-dark {
+  &.ant-menu-submenu-popup {
+    display: none;
+  }
+}

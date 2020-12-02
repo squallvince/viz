@@ -1,0 +1,48 @@
+.root {
+  .ant-layout {
+    background: #1B1B23;
+    &.ant-layout-has-sider {
+      height: calc(100vh - 40px);
+    }
+    .main {
+      background: #26272D;
+    }
+    .ant-layout-sider {
+      background: #1B1B23;
+    }
+    .ant-menu {
+      background: #1B1B23;
+    }
+  }
+  .ant-btn-primary {
+    background: #5B7EE2;
+    &:hover {
+      background: #5B7EE2;
+    }
+  }
+}
+
+.ant-modal-header {
+  padding: 18px 20px;
+  border-bottom: 0;
+}
+
+.ant-modal-footer {
+  padding: 22px 20px;
+  border-top: 0;
+}
+
+.ant-btn-lg {
+  height: 35px;
+  font-size: 16px;
+  > .anticon {
+    margin-left: 6px;
+    + span {
+      margin-left: 10px;
+      margin-right: 6px;
+      padding-right: 10px;
+      line-height: 22px;
+      border-right: 1px solid #1B1B23;
+    }
+  }
+}

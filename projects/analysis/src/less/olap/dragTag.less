@@ -1,0 +1,52 @@
+@prefix: ~'.CDragTag';
+
+@{prefix} {
+	display: flex;
+	align-items: center;
+	min-width: 60px;
+	padding: 5px 8px;
+	position: relative;
+	&-type {
+		font-size: 12px;
+		margin-right: 8px;
+		cursor: move;
+	}
+	&-name {
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+		cursor: move;
+		flex: 1;
+	}
+	&-edit {
+		display: none;
+		cursor: pointer;
+	}
+	&-menu {
+		position: absolute;
+		top: 0;
+		left: 100%;
+		padding: 8px;
+		background: #33343c;
+		.ant-menu-vertical {
+			display: block;
+		}
+	}
+	&:hover {
+		background: #1b1b23;
+		@{prefix}-edit {
+			display: none;
+		}
+	}
+}
+// 覆盖frame子应用下修改的antd原有的样式
+.ant-menu-vertical {
+	display: inherit;
+}
+
+// 覆盖antd的tooltip样式
+@{prefix}-tooltip {
+	.ant-tooltip-inner {
+		background: #33343c;
+	}
+}

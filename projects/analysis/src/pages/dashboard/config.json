@@ -1,0 +1,15 @@
+{
+  "detail": {
+    "title": "仪表盘详情页"
+  },
+  "create": {
+    "title": "新建仪表盘"
+  },
+  "edit": {
+    "title": "编辑仪表盘"
+  },
+  "cancelText": "不，算了",
+  "confrimText": "是，退出",
+  "titlePlaceholder": "无标题仪表板",
+  "descriptionPlaceholder": "无描述"
+}
