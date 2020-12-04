@@ -17,7 +17,7 @@ import { chartToVisua, transformToTHead } from './trans';
 import { SearchInput } from 'components';
 import { RouteComponentProps } from 'react-router';
 
-export interface ISearchAppProps extends RouteComponentProps {}
+export interface ISearchAppProps extends RouteComponentProps { }
 
 export interface ISearchAppState {
 	querySql: string;
@@ -80,7 +80,7 @@ class SearchApp extends React.Component<ISearchAppProps, ISearchAppState> {
 		};
 	}
   originType: string | null = '';
-  originId = undefined;
+	chartType: string = 'Interval';
 	/** baclona start */
 	pageChange = (pageNumber: number, pageSize?: number) => {
 		const { pagination } = this.state;
@@ -99,10 +99,9 @@ class SearchApp extends React.Component<ISearchAppProps, ISearchAppState> {
 	};
 	/** baclona end */
 
-  componentDidMount() {
+	componentDidMount() {
 		const searchParams = new URLSearchParams(this.props.location.search)
 		this.originType = searchParams.get('from');
-    this.originId = searchParams.get('id');
 		// this.getSearchData();
 	}
 
@@ -223,8 +222,11 @@ class SearchApp extends React.Component<ISearchAppProps, ISearchAppState> {
 		});
 	};
   savePanel = () => {
-		let panelData: object = {};
-		const { querySql, isCountData, currentFields, queryStartTime, queryEndTime, timeType, pagination, currentTab} = this.state;
+		let dataSource: object = {};
+		let visualizations: object = {};
+
+		const { querySql, isCountData, currentFields, queryStartTime, queryEndTime, timeType, pagination} = this.state;
+		const randomStr = Math.random().toString(36).slice(-8);
 		const options: object = {
 			querySql,
 			selectColumns: isCountData ? '' : currentFields.join(','),
@@ -234,14 +236,30 @@ class SearchApp extends React.Component<ISearchAppProps, ISearchAppState> {
 			page: pagination.current,
 			pageSize: pagination.pageSize,
 		}
-		let key: string = `ds_${this.originId}_1`;
-		panelData[key] = {
-			type: "ds.search",
+		let ds_Key: string = `ds_${randomStr}`;
+		let viz_key: string = `viz_${randomStr}`;
+		dataSource[ds_Key] = {
+      type: 'ds.search',
 			options,
 			query: '/api/v1.0/viz/datas',
-			name: 'Search_1'
+			name: `Search_${randomStr}`
 		}
-		console.log(panelData)
+		visualizations[viz_key] = {
+			name: `Viz_${randomStr}`,
+			type: `viz.${this.chartType}`,
+			options: {
+				hasPre: true,
+        hasHistory: false,
+        hasArea: false
+			},
+			dataSources: {
+				primary: ds_Key
+			}
+		}
+		const dashboardJson = JSON.parse(localStorage.getItem('dashboardJson'));
+		dashboardJson.dataSources[ds_Key] = dataSource[ds_Key];
+		dashboardJson.visualizations[viz_key] = visualizations[viz_key];
+		localStorage.setItem('dashboardJson', JSON.stringify({ ...dashboardJson}));
 	}
 	renderExtra = () => {
 		const { currentTab, activeTableType } = this.state;
@@ -251,9 +269,8 @@ class SearchApp extends React.Component<ISearchAppProps, ISearchAppState> {
 					<div className={`${prefix}-tab-extra`}>
 						<div className={`${prefix}-switch`}>
 							<div
-								className={`table ${
-									activeTableType === 'table' ? 'active' : ''
-								}`}
+								className={`table ${activeTableType === 'table' ? 'active' : ''
+									}`}
 								title="表格展示"
 								onClick={() => {
 									this.switchType('table');
@@ -275,74 +292,74 @@ class SearchApp extends React.Component<ISearchAppProps, ISearchAppState> {
 			case 'count':
 				return (
 					this.originType === 'create' ?
-            <div>
-              <Button
-                style={{ marginRight: '12px' }}
-                onClick={() => this.openDialog('csv')}
-              >
-                导出CSV
+						<div>
+							<Button
+								style={{ marginRight: '12px' }}
+								onClick={() => this.openDialog('csv')}
+							>
+								导出CSV
 						</Button>
-              <Button
-                style={{ marginRight: '12px' }}
-                onClick={this.toOlapPage}
-                disabled={!this.state.sourceSql}
-              >
-                OLAP
+							<Button
+								style={{ marginRight: '12px' }}
+								onClick={this.toOlapPage}
+								disabled={!this.state.sourceSql}
+							>
+								OLAP
 						</Button>
-              <Button
-                style={{ marginRight: '12px' }}
-                onClick={() => this.openDialog('table')}
-              >
-                保存为报表
+							<Button
+								style={{ marginRight: '12px' }}
+								onClick={() => this.openDialog('table')}
+							>
+								保存为报表
 						</Button>
-              <Button onClick={() => this.openDialog('chart')}>
-                保存为仪表盘
+							<Button onClick={() => this.openDialog('chart')}>
+								保存为仪表盘
 						</Button>
-            </div> :
-            <div>
-              <Button
-                style={{ marginRight: '12px' }}
-                onClick={() => this.openDialog('csv')}
-              >
-                保存并返回
+						</div> :
+						<div>
+							<Button
+								style={{ marginRight: '12px' }}
+								onClick={() => this.openDialog('csv')}
+							>
+								保存并返回
               </Button>
-            </div>
+						</div>
 				);
 			case 'view':
 				return (
 					this.originType === 'create' ?
-          <div>
-            <Button
-              style={{ marginRight: '12px' }}
+						<div>
+							<Button
+								style={{ marginRight: '12px' }}
 								onClick={() => this.savePanel()}
-            >
-              保存并返回
+							>
+								保存并返回
             </Button>
-            </div> :
-            <div>
-              <Button
-                style={{ marginRight: '12px' }}
-                onClick={() => this.openDialog('csv')}
-              >
-                导出CSV
+						</div> :
+						<div>
+							<Button
+								style={{ marginRight: '12px' }}
+								onClick={() => this.openDialog('csv')}
+							>
+								导出CSV
 						  </Button>
-              <Button
-                style={{ marginRight: '12px' }}
-                onClick={this.toOlapPage}
-                disabled={!this.state.sourceSql}
-              >
-                OLAP
+							<Button
+								style={{ marginRight: '12px' }}
+								onClick={this.toOlapPage}
+								disabled={!this.state.sourceSql}
+							>
+								OLAP
 						  </Button>
-              <Button
-                style={{ marginRight: '12px' }}
-                onClick={() => this.openDialog('table')}
-              >
-                保存为报表
+							<Button
+								style={{ marginRight: '12px' }}
+								onClick={() => this.openDialog('table')}
+							>
+								保存为报表
 						  </Button>
-              <Button onClick={() => this.openDialog('chart')}>
-                保存为仪表盘
+							<Button onClick={() => this.openDialog('chart')}>
+								保存为仪表盘
 						  </Button>
-            </div>
+						</div>
 				);
 			default:
 				return;
@@ -355,6 +372,11 @@ class SearchApp extends React.Component<ISearchAppProps, ISearchAppState> {
 			activeTableType: type,
 		});
 	};
+
+	// chart类型切换
+	chartSwitch = (chartType: string) => {
+		this.chartType = chartType;
+	}
 
 	// 点击按钮打开弹窗
 	openDialog = async (type: string) => {
@@ -559,12 +581,14 @@ class SearchApp extends React.Component<ISearchAppProps, ISearchAppState> {
 							<TabPane tab="可视化" key="view">
 								<Visualization
 									chartData={chartToVisua(originData)}
+									searchData={this.state}
 									onPreModalSubmit={() => {
 										this.setState({ loading: true });
 									}}
 									onPreModalClose={() => {
 										this.setState({ loading: false });
 									}}
+									onChartSwitch={this.chartSwitch}
 								/>
 							</TabPane>
 						</Tabs>

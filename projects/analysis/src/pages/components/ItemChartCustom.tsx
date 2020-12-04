@@ -48,7 +48,7 @@ const isMatch = (param: any) => {
 class ItemChartCustom extends Component<IItemChartCustomProps, IItemChartCustomState> {
 
   get chartHeight() {
-    const clientHeight = document.documentElement.clientHeight - 380;
+    const clientHeight = document.documentElement.clientHeight - 300;
     return clientHeight < 500 ? 500 : clientHeight;
   }
 

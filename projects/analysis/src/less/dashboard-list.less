@@ -65,7 +65,7 @@
     }
     .ant-card{
       max-width: 390px;
-      max-height:160px;
+      height:160px;
     }
     .ant-card-head{
       height:32px;
@@ -146,6 +146,7 @@
     background: #26262E;
     position: relative;
     z-index: 1;
+    cursor: pointer;
     .ant-card-extra{
       padding:8px;
       width:16px;
@@ -309,7 +310,8 @@
 .analysis{
   // popover修改
 .ant-popover-placement-bottom > .ant-popover-content > .ant-popover-arrow{
-  top:-45px;
+  top: -58px;
+  left: -46px;
   border-top-color:#2A2B32;
   border-left-color:#2A2B32;
 }
@@ -326,8 +328,9 @@ ul.detailBoard{
   position: absolute;
   z-index: 10;
   box-shadow: 0px 0px 9px 0px #19191D;
-  top:-40px;
-  right:-150px;
+  // top:-40px;
+  // right:-150px;
+  transform: translate(-69%,-48%);
   li{
     line-height: 22px;
     .availble{

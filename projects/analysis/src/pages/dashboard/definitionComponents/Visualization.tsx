@@ -1,10 +1,10 @@
-import React, { useState, useEffect, Suspense } from 'react';
+import React, { useState, useEffect, Suspense, FC } from 'react';
 import { useSetRecoilState, useRecoilValue, RecoilState } from 'recoil';
 import { map, omit, values, fromPairs, mapObjIndexed, pair } from 'ramda';
 import { tokenFamily, dataAtomFamily, definitionVizAtom } from './recoilStore';
 import { getTokensArrayFromConfig, renderJson, generator, VizConfig, useImportResources } from '../utils/misc';
 
-const vizFactory:(tokenAtom:[string, RecoilState<any>][], dataAtom:[string, RecoilState<any>][]) => React.FunctionComponent<{ config:VizConfig }> = (tokenAtom, dataAtom) => {
+const vizFactory:(tokenAtom:[string, RecoilState<any>][], dataAtom:[string, RecoilState<any>][]) => FC<{ config:VizConfig }> = (tokenAtom, dataAtom) => {
   return ({ config }) => {
     const tokens = map(([k, tk]) => pair(k, useRecoilValue(tk)), tokenAtom);
     const data = fromPairs(map(([k,v]) => pair(k, useRecoilValue(v)), dataAtom));
@@ -13,7 +13,7 @@ const vizFactory:(tokenAtom:[string, RecoilState<any>][], dataAtom:[string, Reco
       ...config,
       ...fromPairs(tokens)
     });
-    return <Suspense fallback={<div>loading.....</div>}><Comp {...data} /></Suspense>
+    return <Suspense fallback={<div>loading.....</div>}><Comp {...data} opt={config.options} /></Suspense>
   }
 }
 

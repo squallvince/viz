@@ -21,3 +21,28 @@ export const toDateString = (date: Date) => {
 
 	return dateArr.join('-') + ' ' + timeArr.join(':');
 };
+
+
+export const getFromLS = (key: string) => {
+  let ls = {};
+  if ((window as any).localStorage) {
+    try {
+      ls = JSON.parse((window as any).localStorage.getItem('dashboardJson')) || {};
+    } catch (e) {
+      console.log(e);
+    }
+	}
+	if (key) {
+		return ls[key];
+	}
+  return ls;
+};
+
+export const saveToLS = (value: object) => {
+  if ((window as any).localStorage) {
+    (window as any).localStorage.setItem(
+      'dashboardJson',
+      JSON.stringify(value)
+    );
+  }
+};

@@ -2,7 +2,7 @@
  * @Author: Squall Sha
  * @Date: 2020-11-26 14:51:00
  * @Last Modified by: Squall Sha
- * @Last Modified time: 2020-12-01 18:15:43
+ * @Last Modified time: 2020-12-02 10:34:22
  */
 
 import React, { FC, useState } from 'react';
@@ -14,9 +14,9 @@ const FormSelector: FC = ({ con, states, primary:data }) => {
   const [drawerFlag, setDrawer] = useState(false);
   const [drawerTitle, setDrawerTitle] = useState('');
   // 未来使用
-  const { primary } = states;
-  const [primaryToken, setPrimaryToken] = primary;
-  console.log(primaryToken);
+  // const { primary } = states;
+  // const [primaryToken, setPrimaryToken] = primary;
+  // console.log(primaryToken);
   const { title, icon, options } = con;
   const CurrentIcon = createFromIconfontCN({
     scriptUrl: '//at.alicdn.com/t/font_286280_p0xquimyp3n.js'

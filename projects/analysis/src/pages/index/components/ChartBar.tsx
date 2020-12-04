@@ -64,9 +64,17 @@ export default class WChart extends Component <ITimelineBarData> {
 
   constructor(props: ITimelineBarData) {
     super(props);
+    var loc = window.location, new_uri;
+    if (loc.protocol === "https:") {
+      new_uri = "wss:";
+    } else {
+      new_uri = "ws:";
+    }
+    new_uri += "//" + loc.host;
+    new_uri += "/imserver/countSql";
     this.state = {
       ddata: [],
-      ws: new WebSocket('ws://10.146.143.59:18080/imserver/countSql'),
+      ws: new WebSocket(new_uri),
       activeIndex: -1
     };
 

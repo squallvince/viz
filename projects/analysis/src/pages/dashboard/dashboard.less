@@ -80,7 +80,7 @@
     height: calc(100vh - 40px);
     .ant-drawer-content {
       background: #26272D !important;
-      padding: 12px 12px 24px 12px;
+      padding: 12px 12px 0px 12px;
       position: relative;
     }
     .ant-drawer-header {
@@ -99,6 +99,9 @@
   }
   .ant-drawer-body {
     padding: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
     .ant-input-wrapper {
       width: 160px;
       position: absolute;
@@ -108,14 +111,15 @@
     .list {
       list-style: none;
       padding: 0;
-      margin: 0;
+      margin: 10px 0 0 0;
+      flex: 1;
+      overflow: auto;
       .list-item {
         display: flex;
         overflow: hidden;
-        margin-bottom: 12px;
-        padding: 10px;
+        padding: 15px 10px;
         cursor: pointer;
-        &:hover, &:active, &:visited {
+        &.item-active, &:hover {
           background-color: #000;
         }
         .item-icon {
@@ -142,7 +146,7 @@
               overflow: hidden;
               text-overflow: ellipsis;
               display: -webkit-box;
-              -webkit-line-clamp: 2;
+              -webkit-line-clamp: 1;
               -webkit-box-orient: vertical;
             }
             &.item-time {
@@ -152,6 +156,18 @@
             }
           }
         }
+      }
+    }
+    .drawer-footer {
+      width: 100%;
+      margin: 20px auto 16px;
+      text-align: center;
+      overflow: hidden;
+      height: 80px;
+      button {
+        width: 90%;
+        height: 38px;
+        font-size: 14px;
       }
     }
   }

@@ -110,8 +110,6 @@ export default class CommonDialog extends React.Component<
     const { type } = this.props;
     const { isNew, dashboardList } = this.state;
     switch (type) {
-      case "csv":
-        return <div>数据超过10000条，确认继续导出？</div>;
       case "table":
         return (
           <>
@@ -182,8 +180,6 @@ export default class CommonDialog extends React.Component<
   renderTitle = () => {
     const { type } = this.props;
     switch (type) {
-      case "csv":
-        return "确认导出？";
       case "table":
         return "保存为报表";
       case "chart":
@@ -195,7 +191,6 @@ export default class CommonDialog extends React.Component<
 
   // 提交表单
   onSubmit = async (values: IFormVals) => {
-    console.log(values);
     const { isNew } = this.state;
     const { queryParams } = this.props;
     this.setState({
@@ -212,47 +207,28 @@ export default class CommonDialog extends React.Component<
           reqParams.id = values.dashboard;
           reqParams.panels?.push({name: values.dashboard as string, sqlText: this.props.querySql})
         }
-        await saveDashboard(reqParams);
+        // TODO:发送保存为仪表盘的后端请求
+        // await saveDashboard(reqParams);
         message.success("操作成功");
         this.setState({
           loading: false,
         });
         this.props.onClose();
       } else if (this.props.type === "table") {
-        const { tableDec, tableName } = values;
-        await saveReport({
-          name: tableName as string,
-          describe: tableDec,
-          querySql: queryParams.querySql
-        });
+        // const { tableDec, tableName } = values;
+        // TODO:发送保存为报表的后端请求
+        // await saveReport({
+        //   name: tableName as string,
+        //   describe: tableDec,
+        //   querySql: queryParams.querySql
+        // });
         message.success("操作成功");
         this.setState({
           loading: false,
         });
         this.props.onClose();
-      }else if(this.props.type === "csv"){
-        const downloadUrl = await downLoadCsv({
-          ...queryParams
-        })
-        // 创建元素
-        const link = document.createElement('a');
-        link.href = downloadUrl;
-        link.download="file.csv";
-        document.body.appendChild(link);
-
-        // 触发click才能下载
-        link.click();
-        // 移除
-        document.body.removeChild(link);
-        setTimeout(() => {
-          this.setState({
-            loading: false,
-          });
-          this.props.onClose();
-        }, 500);
       }
     } catch (error) {
-      console.log(error.code);
       this.setState({
         loading: false
       })
@@ -260,7 +236,7 @@ export default class CommonDialog extends React.Component<
   };
 
   render() {
-    const { visible, type } = this.props;
+    const { visible } = this.props;
 
     return (
       <Modal
@@ -277,7 +253,7 @@ export default class CommonDialog extends React.Component<
               this.formRef.current.submit();
             }}
           >
-            {type === "csv" ? "导出" : "保存"}
+            保存
           </Button>,
         ]}
         onCancel={() => {

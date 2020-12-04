@@ -31,13 +31,13 @@ const Token = ({defaultToken}) => {
     setDefTokenAtom(defToken);
   }, [defToken, setDefTokenAtom]);
 
-  const upsertToken = (k:string, v:string|number) =>setDefToken({
+  const upsertToken = (k:string, v:string|number) => setDefToken({
     ...defToken,
     [k]: v
   });
-  const delToken = (k:string) =>setDefToken(omit([k],defToken));
+  const delToken = (k:string) => setDefToken(omit([k],defToken));
 
-  const TokenFamily = mapObjIndexed((v,k)=>(<TokenStore key={k} tokenAtom={tokenFamily(k)} name={k}/>),defToken);
+  const TokenFamily = mapObjIndexed((v, k) => (<TokenStore key={k} tokenAtom={tokenFamily(k)} name={k} />), defToken);
   return (
     <>
       {/* {

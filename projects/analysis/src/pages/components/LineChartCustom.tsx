@@ -7,15 +7,30 @@ interface IObj {
 	[key: string]: any;
 }
 
-interface ILineChartCustomProps {
-	data: Array<IObj>;
-	hasPre: boolean;
-	hasHistory: boolean;
-	hasArea: boolean;
+interface IData {
+	datas: Array<IObj>;
+	classification: IClassification;
 }
 
-interface ILineChartCustomState {
-	// chartData: any;
+interface IPAData {
+	chartIconActive: number,
+	predictionVisible: boolean,
+	hasPre: boolean,
+	preData: Array<any>
+	hasHistory: boolean,
+	historyData: Array<any>
+	hasArea: boolean,
+	areaHistoryData: Array<any>,
+	areaPreData: Array<any>
+}
+
+interface ILineChartCustomProps {
+	data: IData;
+	paData: IPAData;
+}
+interface IClassification {
+	date: Array<string>;
+	number: Array<string>;
 }
 
 const TYPES = ['date', 'timestamp'];
@@ -47,22 +62,34 @@ const isMatch = (param: any) => {
 };
 
 class LineChartCustom extends Component<
-	ILineChartCustomProps,
-	ILineChartCustomState
+	ILineChartCustomProps
 	> {
 
 	private scaleMax = Number.MIN_SAFE_INTEGER;
 
 	constructor(props: ILineChartCustomProps) {
 		super(props);
-		this.state = {
-			// chartData: []
-		};
 	}
 
 	get chartHeight() {
-		const clientHeight = document.documentElement.clientHeight - 380;
+		const clientHeight = document.documentElement.clientHeight - 300;
 		return clientHeight < 500 ? 500 : clientHeight;
+	}
+
+	get scale() {
+		return {
+			x: {
+				// mask: 'YYYY-MM-DD HH:mm:ss',
+				range: [0.05, 0.95],
+				sync: true,
+				nice: true
+			},
+			y: {
+				// 由于使用不同View，需要设定 scale 的 min 和 max
+				min: 0,
+				max: this.scaleMax + this.getStep(this.scaleMax)
+			}
+		}
 	}
 
 	getStep = (max: number) => {
@@ -74,146 +101,60 @@ class LineChartCustom extends Component<
 		return step / 2;
 	}
 
-	tranform = (): any => {
-		const { data } = this.props;
-		// console.log(data);
-
-		if (data == null) return false;
-
-		let ans: { y: number; x: any; group: string }[] = [];
-		if (!isMatch(data.classification)) {
+	tranform = (datas: Array<IObj>, classification: IClassification, isXArr = false): any => {
+		let ans: { y: number | any[]; x: any; group: string }[] = [];
+		if (!isMatch(classification)) {
 			return false;
 		}
-		if (data.classification.number == null) return false;
-		if (data.classification.date == null) return false;
-		data.datas.forEach((item, i) => {
-			data.classification.number.forEach((sub) => {
+		if (classification.number == null) return false;
+		if (classification.date == null) return false;
+		datas.forEach((item) => {
+			classification.number.forEach((sub) => {
 				if (Number(item[sub] > this.scaleMax)) {
 					this.scaleMax = Number(item[sub]);
 				}
 				const obj = {
-					y: Number(item[sub]),
-					x: item[data.classification.date[0]],
-					group: `${sub}`,
+					y: isXArr ? [item.low, item.high] : Number(item[sub]),
+					// x: item[classification.date[0]].substring(0, 16),
+					// x: new Date(item[classification.date[0]]).getTime(),
+					x: item[classification.date[0]],
+					group: `${sub}`
 				};
 				ans.push(obj);
 			});
 		});
 		return ans;
-	};
-
-	filterPredData = (chartData: any[]) => {
-		return chartData.filter(item => item?.isPre);
 	}
 
 	render() {
-		const { hasPre, hasHistory, hasArea } = this.props;
+		const {
+			hasPre,
+			preData,
+			hasHistory,
+			historyData,
+			hasArea,
+			areaPreData,
+			areaHistoryData } = this.props.paData;
+		const { data } = this.props;
 
-		let chartData = this.tranform();
+		if (data == null) {
+			return <Empty />;
+		}
+		const { datas, classification } = data;
+		let chartData = this.tranform(datas, classification);
+		const _preData = this.tranform(preData, classification);
+		const _historyData = this.tranform(historyData, classification);
+		const _areaPreData = this.tranform(areaPreData, classification, true);
+		const _areaHisrotyData = this.tranform(areaHistoryData, classification, true);
+
 		if (chartData === false) {
 			return <Empty />;
 		}
-		const scale = {
-			x: {
-				mask: 'YYYY-MM-DD HH:mm:ss',
-				range: [0.05, 0.95],
-				sync: true,
-				nice: true
-			},
-			y: {
-				// 由于使用不同View，需要设定 scale 的 min 和 max
-				min: 0,
-				max: this.scaleMax + this.getStep(this.scaleMax)
-			}
-		};
-
-		/**
-		 * 假数据，最后要删除 start
-		 */
-		const preData = [
-			{
-				group: '_col1',
-				x: '2020-10-10',
-				y: 200,
-				isPre: true
-			},
-			{
-				group: '_col1',
-				x: '2020-10-11',
-				y: 100,
-				isPre: true
-			},
-			{
-				group: '_col1',
-				x: '2020-10-12',
-				y: 300,
-				isPre: true
-			}
-		];
-		if (hasPre) {
-			chartData = chartData.concat(preData);
-		}
-		const areaPreData = [
-			{
-				group: '_col1',
-				x: '2020-10-10',
-				y: [100, 300],
-			},
-			{
-				group: '_col1',
-				x: '2020-10-11',
-				y: [120, 400],
-			},
-			{
-				group: '_col1',
-				x: '2020-10-12',
-				y: [150, 500],
-			}
-		];
-		const historyData = [
-			{
-				group: '_col1',
-				x: '2020-10-10',
-				y: 400,
-				isPre: true
-			},
-			{
-				group: '_col1',
-				x: '2020-10-11',
-				y: 600,
-				isPre: true
-			},
-			{
-				group: '_col1',
-				x: '2020-10-12',
-				y: 800,
-				isPre: true
-			}
-		];
-		const areaHistoryData = [
-			{
-				group: '_col1',
-				x: '2020-10-10',
-				y: [300, 500],
-			},
-			{
-				group: '_col1',
-				x: '2020-10-11',
-				y: [500, 700],
-			},
-			{
-				group: '_col1',
-				x: '2020-10-12',
-				y: [700, 900],
-			}
-		]
-		/**
-		 * 假数据，最后要删除 end
-		 */
-
-		const preChartData = this.filterPredData(chartData);
+		// if (hasPre) {
+		// 	chartData = chartData.concat(_preData);
+		// }
 		// console.log(chartData);
-		// console.log(preChartData);
+
 
 		return (
 			<Chart
@@ -223,7 +164,7 @@ class LineChartCustom extends Component<
 			>
 				<View
 					data={chartData}
-					scale={scale}
+					scale={this.scale}
 				>
 					<Axis name="x" />
 					<Geom
@@ -257,9 +198,9 @@ class LineChartCustom extends Component<
 				/>
 				{/* 预测数据开始 */}
 				{
-					hasArea && <View
-						data={areaPreData}
-						scale={scale}
+					(hasPre && hasArea) && <View
+						data={_areaPreData}
+						scale={this.scale}
 					>
 						<Axis name="y" visible={false} />
 						<Axis name="x" visible={false} />
@@ -274,8 +215,8 @@ class LineChartCustom extends Component<
 				}
 				{
 					hasPre && <View
-						data={preChartData}
-						scale={scale}
+						data={_preData}
+						scale={this.scale}
 					>
 						<Axis name="y" visible={false} />
 						<Axis name="x" visible={false} />
@@ -291,9 +232,9 @@ class LineChartCustom extends Component<
 				{/* 预测数据结束 */}
 				{/* 历史拟合数据开始 */}
 				{
-					hasArea && <View
-						data={areaHistoryData}
-						scale={scale}
+					(hasHistory && hasArea) && <View
+						data={_areaHisrotyData}
+						scale={this.scale}
 					>
 						<Axis name="y" visible={false} />
 						<Axis name="x" visible={false} />
@@ -308,17 +249,25 @@ class LineChartCustom extends Component<
 				}
 				{
 					hasHistory && <View
-						data={historyData}
-						scale={scale}
+						data={_historyData}
+						scale={this.scale}
 					>
 						<Axis name="y" visible={false} />
 						<Axis name="x" visible={false} />
 						<Geom
 							type="line"
 							position="x*y"
-							color={'group'}
+							color={['group', ['#fff']]}
 							tooltip={false}
 						/>
+						{/* <Geom
+							type="point"
+							position="x*y"
+							size={4}
+							shape={'circle'}
+							tooltip={false}
+							color="group"
+						/> */}
 					</View>
 				}
 				{/* 历史拟合数据结束 */}

@@ -132,7 +132,9 @@ class DashboardList extends React.Component<DashboardState> {
     this.getList();
 
   }
-  showMenu = (item) => {
+  showMenu = (e, item) => {
+    e.persist()
+    e.stopPropagation();
     const { activeItem } = this.state;
     if (activeItem && activeItem.id) {
       this.setState({
@@ -164,13 +166,17 @@ class DashboardList extends React.Component<DashboardState> {
       return;
     }
     addBoard(param).then(res => {
-      const pathname = '/analysis/dashboard/edit';
+      
       this.setState({
         showAdd: false
       });
       this.getList();
-      window.open(`${location.origin}${pathname}?id=${res}`);
+      this.toDetail(res)
     });
+  }
+  toDetail = (id) => {
+    const pathname = '/analysis/dashboard/edit';
+      window.open(`${location.origin}${pathname}?id=${id}`);
   }
   hideModal = () => {
     this.formRef.current.resetFields();
@@ -232,9 +238,10 @@ class DashboardList extends React.Component<DashboardState> {
               <Card
                 style={{ marginTop: 25 }}
                 type="inner"
+                onClick={() => this.toDetail(item.id)}
                 extra={
                   <Space>
-                    <EllipsisOutlined onClick={() => this.showMenu(item) } className={(activeItem && activeItem.id === item.id) ? 'active' : ''}/>
+                    <EllipsisOutlined onClick={(e) => this.showMenu(e,item) } className={(activeItem && activeItem.id === item.id) ? 'active' : ''}/>
                   </Space>
               }
             >
@@ -245,7 +252,7 @@ class DashboardList extends React.Component<DashboardState> {
                     <Popover content={detailBoard(item)} className="details" title="" placement="bottom"  arrowPointAtCenter>
                   <Col span={14}>
                     <p className="title">{ name }</p>
-                    <p className="desc">{ panelNum || 0 }图表组成</p>
+                    <p className="desc">{ panelNum || 0 }张图表组成</p>
                     </Col>
                     </Popover>
                 </Row>

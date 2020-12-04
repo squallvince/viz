@@ -34,9 +34,21 @@
   },
   "visualizations": {
     "viz_lKB497Im": {
-      "title": "{value}",
-      "type": "viz.table",
+      "title": "Test table",
+      "type": "viz.Table",
       "options": {},
+      "dataSources": {
+        "primary": "ds_QVT58Mde"
+      }
+    },
+    "viz_etsttts": {
+      "title": "Test chart",
+      "type": "viz.Line",
+      "options": {
+        "hasPre": true,
+        "hasHistory": false,
+        "hasArea": false
+      },
       "dataSources": {
         "primary": "ds_QVT58Mde"
       }
@@ -108,7 +120,7 @@
   },
   "tokens": {
     "title": "",
-    "value": "",
+    "tableTitle": "Test Table",
     "newChart": "",
     "readyTables": "",
     "saveAll": ""
@@ -118,11 +130,22 @@
     "options": {},
     "structure": [
       {
-        "i": "viz_lKB497Im",
-        "x": 0,
-        "y": 0,
-        "w": 300,
-        "h": 300
+        "id": "viz_lKB497Im",
+        "positions": {
+          "x": 0,
+          "y": 0,
+          "w": 2,
+          "h": 3
+        }
+      },
+      {
+        "id": "viz_etsttts",
+        "positions": {
+          "x": 2,
+          "y": 0,
+          "w": 2,
+          "h": 3
+        }
       }
     ]
   },

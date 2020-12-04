@@ -49,7 +49,7 @@ class BarChartCustom extends Component<IBarChartCustomProps, IBarChartCustomStat
 
 
   get chartHeight() {
-    const clientHeight = document.documentElement.clientHeight - 380;
+    const clientHeight = document.documentElement.clientHeight - 300;
     return clientHeight < 500 ? 500 : clientHeight;
   }
 

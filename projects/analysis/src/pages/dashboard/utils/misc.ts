@@ -22,7 +22,6 @@ type DefinitionType = {
   [propName in ObjectKeyType]: unknown;
 };
 
-
 export interface VizConfig extends DefinitionType { 
   type:string,
   dataSources?: { [x: string]: unknown; } | { [x: number]: unknown; }
@@ -110,7 +109,7 @@ export const generator = (factory:Factory, tokenFamily:(param: SerializableParam
   }
 }
 
-export const useImportResources:(type:string)=>React.LazyExoticComponent<React.ComponentType<any>> = (type) => useMemo(
+export const useImportResources:(type:string) => React.LazyExoticComponent<React.ComponentType<any>> = (type) => useMemo(
   () => {
     // return lazy(loadComponent('resources', `./${type}`));
     const path = type.replace('.', '/');

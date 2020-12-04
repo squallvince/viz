@@ -2,20 +2,21 @@
  * @Author: Squall Sha
  * @Date: 2020-11-17 11:17:24
  * @Last Modified by: Squall Sha
- * @Last Modified time: 2020-12-01 18:02:12
+ * @Last Modified time: 2020-12-02 15:12:58
  */
 
-import React, { FC, useState } from 'react';
+import React, { FC, useState, useCallback } from 'react';
 import { Button, Modal, Input } from 'antd';
 import { CloseOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
-// import getVizLayout from './layout/VizLayout';
-// import Viz from './definitionComponents/Visualization';
+import getVizLayout from './layout/VizLayout';
+import Viz from './definitionComponents/Visualization';
 import definition from './dashboardDefinition.json';
 import Fromlayout from './layout/FormLayout';
 import Forms from './definitionComponents/Forms';
 import DataSources from './definitionComponents/DataSources';
 import Token from './definitionComponents/Token';
 import config from './config.json';
+import { getFromLS, saveToLS } from '../../utils';
 import './dashboard.less';
 const { TextArea } = Input;
 const prefix: string = 'dashboard';
@@ -30,11 +31,18 @@ const isEdit = (mode: String) => {
 const Dashboard: FC = (props) => {
   const { location } = props;
   const mode = (window as any).Common360.Utils.Tools.GetLastPathName(location.pathname);
-  const { forms, visualizations: viz, dataSources, layout, custom, tokens } = definition;
+  const localStorageJson = getFromLS() || {};
+  const definitions = Object.assign(definition, localStorageJson);
+  const { forms, visualizations: viz, dataSources, layout, custom, tokens } = definitions;
   const [title, setTitle] = useState(custom.title);
   const [description, setDescription] = useState(custom.description);
   const [outToEdit, setOutToEdit] = useState(false);
-
+  // 获取请求后调用这个方法
+  const updateDashboard = useCallback(() => {
+    saveToLS(definitions);
+  }, definitions);
+  updateDashboard();
+  
   const CloseEdit = () => {
     setOutToEdit(isEdit(mode));
   };
@@ -50,14 +58,6 @@ const Dashboard: FC = (props) => {
   const descriptionOnChange = (e: Event) => {
     setDescription(e.target.value);
   };
-  // const dependency = importVizAndForm(definition);
-  // const tokenAtoms = createAtomFromToken(tokens);
-  // const vizSelectors = getVizSelectorsFromDefinition(tokenAtoms)(viz);
-  // const dataSourceSelectors = getDataSourceSelectorFromDefinition(tokenAtoms)(dataSources);
-  // const vizComponents = mapObjIndexed(
-  //   (v, k) => vizFactory(k, dataSourceSelectors, vizSelectors, dependency),
-  //   viz
-  // );
 
   return (
     <section className={`${prefix}-container`}>
@@ -97,10 +97,10 @@ const Dashboard: FC = (props) => {
             <p>{description}</p>
           </>
         )}
+        <Viz defaultViz={viz} Layout={ getVizLayout(layout) } />
+        <DataSources defaultDataSource={dataSources} />
+        <Token defaultToken={tokens} />
       </div>
-      <DataSources defaultDataSource={dataSources} />
-      <Token defaultToken={tokens} />
-      {/* <Viz defaultViz={viz} Layout={ getVizLayout(layout) } /> */}
     </section>
   );
 };

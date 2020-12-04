@@ -14,10 +14,20 @@ interface IMenuItem {
   children: Array<{ [key: string]: string | any }>;
 }
 
+export interface IFormValue {
+  periods: string;
+  unit: string;
+  fit: string;
+  confidence: string
+  mape: boolean;
+  selectedItemKey: string;
+  time: string;
+}
+
 interface IPredictionModalProps {
   data: any;
   onClose?: () => void;
-  onSubmit?: () => void;
+  onSubmit?: (formValue: IFormValue) => void;
 }
 
 interface IPredictionModalState {
@@ -36,7 +46,7 @@ const itemStyle = {
 };
 
 const advancedIconStyle = {
-  transform: 'rotate(90deg)'
+  transform: 'rotate(-90deg)'
 };
 
 const layout = {
@@ -56,6 +66,10 @@ const footerStyle = {
 const btnStyle = {
   marginRight: '20px'
 }
+
+const advancedStyle = {
+  display: 'none'
+};
 
 export default class PredictionModal extends React.Component<IPredictionModalProps, IPredictionModalState>{
 
@@ -118,17 +132,19 @@ export default class PredictionModal extends React.Component<IPredictionModalPro
 
   get formDefalutValue() {
     return {
-      a: '1',
-      b: '1',
-      c: '0.05',
-      d: '0.95',
-      e: false
+      periods: '1',
+      unit: '1minute',
+      fit: '0.05',
+      confidence: '0.95',
+      mape: false
     };
   }
 
   constructor(props: IPredictionModalProps) {
     super(props);
     const { data } = this.props;
+    // console.log(data);
+
     let columns = data?.classification?.number || [];
     columns = columns.map((item: any, i: number) => {
       return {
@@ -157,10 +173,10 @@ export default class PredictionModal extends React.Component<IPredictionModalPro
         }
       ],
       selectedItemIndex: 0,
-      selectedItemKey: '111',
+      selectedItemKey: columns[0].key,
       formValue: {},
       formInValid: true,
-      advancedShow: false,
+      advancedShow: false
     };
   }
 
@@ -191,11 +207,7 @@ export default class PredictionModal extends React.Component<IPredictionModalPro
 
   setFormDefaultVal = () => {
     this.formRef.current.setFieldsValue({
-      a: '1',
-      b: '1',
-      c: '0.05',
-      d: '0.95',
-      e: false
+      ...this.formDefalutValue
     });
   }
 
@@ -227,12 +239,17 @@ export default class PredictionModal extends React.Component<IPredictionModalPro
 
   formSubmit = () => {
     const formValue = this.formRef.current.getFieldsValue();
-    console.log({ ...formValue, selectedItemKey: this.state.selectedItemKey });
+    const selectedItemKey = this.state.selectedItemKey;
+    const { classification } = this.props.data;
 
     const then = Promise.resolve();
     then.then(() => {
       if (this.props.onSubmit) {
-        this.props.onSubmit();
+        this.props.onSubmit({
+          ...formValue,
+          column: selectedItemKey,
+          time: classification?.date[0]
+        });
       }
     });
 
@@ -289,7 +306,7 @@ export default class PredictionModal extends React.Component<IPredictionModalPro
             <header>基础参数</header>
             <Form.Item
               label="预测长度"
-              name="a"
+              name="periods"
               rules={[
                 { validator: this.validateCustom }
               ]}
@@ -300,7 +317,7 @@ export default class PredictionModal extends React.Component<IPredictionModalPro
             </Form.Item>
             <Form.Item
               label="时间间隔"
-              name="b"
+              name="unit"
               extra="以原始数据时间间隔为最小计算倍数"
             >
               <Select style={{ width: 120 }} >
@@ -321,41 +338,41 @@ export default class PredictionModal extends React.Component<IPredictionModalPro
               高级参数
               <CaretDownOutlined style={this.state.advancedShow ? {} : advancedIconStyle} />
             </header>
-            {
-              this.state.advancedShow && <React.Fragment><Form.Item
-                label="模型拟合度"
-                name="c"
-                extra="建议0.05左右"
-                rules={[
-                  { validator: this.validateCustom }
-                ]}
-              >
-                <Input
-                  style={{ width: '130px' }}
-                />
-              </Form.Item>
+            <Form.Item
+              style={this.state.advancedShow ? {} : advancedStyle}
+              label="模型拟合度"
+              name="fit"
+              extra="建议0.05左右"
+              rules={[
+                { validator: this.validateCustom }
+              ]}
+            >
+              <Input
+                style={{ width: '130px' }}
+              />
+            </Form.Item>
 
-                <Form.Item
-                  label="置信度"
-                  name="d"
-                >
-                  <Slider
-                    max={1}
-                    min={0}
-                    step={0.01}
-                  />
-                </Form.Item>
+            <Form.Item
+              label="置信度"
+              name="confidence"
+              style={this.state.advancedShow ? {} : advancedStyle}
+            >
+              <Slider
+                max={1}
+                min={0}
+                step={0.01}
+              />
+            </Form.Item>
 
-                <Form.Item
-                  valuePropName="checked"
-                  label="MAPE"
-                  name="e"
-                  extra="预测效果指标评估越小越好"
-                >
-                  <Switch />
-                </Form.Item>
-              </React.Fragment>
-            }
+            <Form.Item
+              valuePropName="checked"
+              label="MAPE"
+              name="mape"
+              extra="预测效果指标评估越小越好"
+              style={this.state.advancedShow ? {} : advancedStyle}
+            >
+              <Switch />
+            </Form.Item>
             <Form.Item
               {...layoutFooter}
             >

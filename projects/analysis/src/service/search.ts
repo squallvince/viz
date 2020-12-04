@@ -137,7 +137,7 @@ export interface regMatchParams {
 }
 
 // 抽屉保存
-export const saveConfig = async (params: ConfigParams) => {
+export const saveConfig = (params: ConfigParams) => {
 	return (window as any).PromiseFetch(
 		'/api/v1.0/extract/saveConfig',
 		{ ...params },
@@ -150,5 +150,29 @@ export const regMatchCount = async (params: regMatchParams) => {
 		'/api/v1.0/extract/resultStatistic',
 		{ ...params },
 		'get'
+	);
+};
+
+/**
+ * PA预测
+ */
+export interface IPAAnalyseParams {
+	periods: string;
+  unit: string;
+  fit: string;
+  confidence: string
+  mape: boolean;
+  selectedItemKey: string;
+  time: string;
+	querySql: string;
+	timeType: string;
+	endTime: string;
+	startTime: string;
+}
+export const analysePA = async (params: IPAAnalyseParams) => {
+	return (window as any).PromiseFetch(
+		'/api/v1.0/viz/analyse',
+		{ ...params },
+		'post'
 	);
 };

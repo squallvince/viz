@@ -4,8 +4,7 @@ import { map, omit, values, fromPairs, mapObjIndexed, pair } from 'ramda';
 import { tokenFamily, dataAtomFamily, definitionFormAtom } from './recoilStore';
 import { renderJson, generator, FormConfig, useImportResources } from '../utils/misc';
 
-const formFactory: (tokenAtom:[string,RecoilState<any>][], dataAtom:[string,RecoilState<any>][]) => FC<{ config:FormConfig }> 
-= (tokenAtom, dataAtom) => {
+const formFactory:(tokenAtom:[string, RecoilState<any>][], dataAtom:[string, RecoilState<any>][]) => FC<{ config:FormConfig }> = (tokenAtom, dataAtom) => {
   return ({config}) => {
     const tokens = map(([k, tk]) => pair(k, useRecoilState(tk)), tokenAtom);
     const { type, tokens: tks } = config;
